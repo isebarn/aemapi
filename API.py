@@ -44,6 +44,7 @@ def jomafa(search):
     result['title'] = title
     result['url'] = url
     result['price'] = price
+    result['source'] = 'jomafa'
 
     results.append(result)
 
@@ -79,6 +80,7 @@ def amazon(search):
       result['title'] = title
       result['url'] = url
       result['price'] = price
+      result['source'] = 'amazon'
 
       results.append(result)
 
@@ -98,6 +100,11 @@ def jomafa_endpoint():
 def amazon_endpoint():
   search = request.args.get('search', default = '', type = str)
   return jsonify(amazon(search))
+
+@app.route('/')
+def root_endpoint():
+  search = request.args.get('search', default = '', type = str)
+  return search
 
 if __name__ == "__main__":
   search = "prensa hidraulica 12 toneladas"
