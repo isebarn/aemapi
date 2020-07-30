@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 
+from flask_cors import CORS, cross_origin
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
@@ -10,6 +11,8 @@ from time import sleep
 JOMAFA = "https://www.jomafa.com/busqueda?controller=search&s={}"
 AMAZON = "https://www.amazon.es/s?k={}"
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app, resources={r"*": {"origins": os.environ.get('WEB')}})
 
 def jomafa(search):
   driver = webdriver.Remote(os.environ.get('BROWSER'), DesiredCapabilities.FIREFOX)
